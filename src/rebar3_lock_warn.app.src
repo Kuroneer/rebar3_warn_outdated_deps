@@ -1,0 +1,15 @@
+{application, rebar3_lock_warn,
+ [{description, "rebar3 plugin that warns about mismatches between defined and locked dependencies"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, ["Jose Maria Perez Ramos"]},
+  {licenses, ["MIT"]},
+  {links, []}
+ ]}.
