@@ -40,6 +40,7 @@ or set up a hook:
     {provider_hooks, [{pre, [{compile, lock_warn}]}]}.
 
 or
+
     {provider_hooks, [{pre, [{compile, lock_warn_abort}]}]}.
 
 
