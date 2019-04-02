@@ -1,8 +1,8 @@
-% Part of rebar3_lock_warn Erlang App (rebar3 plugin)
+% Part of rebar3_warn_outdated_deps Erlang App (rebar3 plugin)
 % MIT License
 % Copyright (c) 2019 Jose Maria Perez Ramos
 
--module(rebar3_lock_warn).
+-module(rebar3_warn_outdated_deps).
 
 -export([
          init/1,
@@ -10,7 +10,7 @@
          format_error/1
         ]).
 
--define(PROVIDER, lock_warn).
+-define(PROVIDER, warn_outdated_deps).
 -define(DEPS, [lock]).
 
 %% ===================================================================
@@ -23,14 +23,14 @@ init(State) ->
             {module, ?MODULE},            % The module implementation of the task
             {bare, true},                 % The task can be run by the user, always true
             {deps, ?DEPS},                % The list of dependencies
-            {example, "rebar3 lock_warn"}, % How to use the plugin
+            {example, "rebar3 warn_outdated_deps"}, % How to use the plugin
             {opts, [                      % list of options understood by the plugin
                     {abort_on_mismatch, $a, "abort_on_mismatch", boolean, "Abort if a mismatch is found. Default: false"}
                    ]},
-            {short_desc, "Warns when you have mismatching locked dependencies defined"},
-            {desc, "Warns when you have mismatching locked dependencies defined"}
+            {short_desc, "Warns when a dep needs to be updated to match rebar.config"},
+            {desc,       "Warns when a dep needs to be updated to match rebar.config"}
     ]),
-    {ok, StateWithLockWarnAbortCommand} = rebar3_lock_warn_abort:init(State),
+    {ok, StateWithLockWarnAbortCommand} = rebar3_warn_outdated_deps_abort:init(State),
     {ok, rebar_state:add_provider(StateWithLockWarnAbortCommand, Provider)}.
 
 
@@ -38,7 +38,7 @@ init(State) ->
 do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
     AbortOnMismatch = proplists:get_value(abort_on_mismatch, Args, false),
-    rebar3_lock_warn_common:do(State, AbortOnMismatch).
+    rebar3_warn_outdated_deps_common:do(State, AbortOnMismatch).
 
 
 -spec format_error(any()) ->  iolist().

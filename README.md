@@ -1,6 +1,6 @@
-# rebar3_lock_warn
+# rebar3_warn_outdated_deps
 
-Rebar3 plugin that warns about mismatches between defined and locked dependencies.
+Rebar3 plugin that warns when a dep needs to be updated to match rebar.config
 
 ## Build
 
@@ -11,37 +11,25 @@ Rebar3 plugin that warns about mismatches between defined and locked dependencie
 Add the plugin to your rebar config:
 
     {plugins, [
-        {rebar3_lock_warn, {git, "https://github.com/Kuroneer/rebar3_lock_warn.git", {tag, "0.1.1"}}}
+        {rebar3_warn_outdated_deps, {git, "https://github.com/Kuroneer/rebar3_warn_outdated_deps.git", {tag, "0.1.2"}}}
     ]}.
 
 Then just call it directly in an existing application:
 
-    $ rebar3 lock_warn
-    ===> Compiling rebar3_lock_warn
+    $ rebar3 warn_outdated_deps_abort
     ===> Verifying dependencies...
-    ===> cowboy differs from lock file
+    ===> cowboy doesn't match rebar.config
+    ===> tcpserver is a checkout
+    ===> Mismatch found between local and config, abort
 
-    $ rebar3 lock_warn -a
-    ===> Compiling rebar3_lock_warn
-    ===> Verifying dependencies...
-    ===> Compiling cowboy
-    ===> cowboy is a checkout
-    ===> Mismatch found between lock and config
 
-    $ rebar3 lock_warn_abort
-    ===> Compiling rebar3_lock_warn
-    ===> Verifying dependencies...
-    ===> Compiling cowboy
-    ===> cowboy is a checkout
-    ===> Mismatch found between lock and config
+or set up a hook (its intended use):
 
-or set up a hook:
-
-    {provider_hooks, [{pre, [{compile, lock_warn}]}]}.
+    {provider_hooks, [{pre, [{compile, warn_outdated_deps}]}]}.
 
 or
 
-    {provider_hooks, [{pre, [{compile, lock_warn_abort}]}]}.
+    {provider_hooks, [{pre, [{compile, warn_outdated_deps_abort}]}]}.
 
 
 ## Authors
