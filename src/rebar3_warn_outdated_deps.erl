@@ -10,12 +10,15 @@
          format_error/1
         ]).
 
+
 -define(PROVIDER, warn_outdated_deps).
 -define(DEPS, [lock]).
+
 
 %% ===================================================================
 %% Public API
 %% ===================================================================
+
 -spec init(rebar_state:t()) -> {ok, rebar_state:t()}.
 init(State) ->
     Provider = providers:create([
