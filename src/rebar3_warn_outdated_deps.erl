@@ -10,14 +10,11 @@
          format_error/1
         ]).
 
-
 -define(PROVIDER, warn_outdated_deps).
 -define(DEPS, [lock]).
 
 
-%% ===================================================================
-%% Public API
-%% ===================================================================
+%%% API
 
 -spec init(rebar_state:t()) -> {ok, rebar_state:t()}.
 init(State) ->
@@ -36,13 +33,11 @@ init(State) ->
     {ok, StateWithLockWarnAbortCommand} = rebar3_warn_outdated_deps_abort:init(State),
     {ok, rebar_state:add_provider(StateWithLockWarnAbortCommand, Provider)}.
 
-
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
     AbortOnMismatch = proplists:get_value(abort_on_mismatch, Args, false),
     rebar3_warn_outdated_deps_common:do(State, AbortOnMismatch).
-
 
 -spec format_error(any()) ->  iolist().
 format_error(Reason) ->

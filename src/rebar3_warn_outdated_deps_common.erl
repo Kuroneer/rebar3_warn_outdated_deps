@@ -7,9 +7,7 @@
 -export([do/2]).
 
 
-%% ===================================================================
-%% Public API
-%% ===================================================================
+%%% API
 
 -spec do(rebar_state:t(), boolean()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State, AbortOnMismatch) ->

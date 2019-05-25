@@ -9,7 +9,6 @@
   {env,[]},
   {modules, []},
 
-  {maintainers, ["Jose Maria Perez Ramos <jose.m.perez.ramos gmail.com>"]},
   {licenses, ["MIT"]},
   {links, []}
  ]}.
