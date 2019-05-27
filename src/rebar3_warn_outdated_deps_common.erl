@@ -1,13 +1,17 @@
-% Part of rebar3_warn_outdated_deps Erlang App (rebar3 plugin)
-% MIT License
-% Copyright (c) 2019 Jose Maria Perez Ramos
-
+%%%-------------------------------------------------------------------
+%%% Part of rebar3_warn_outdated_deps Erlang App
+%%% MIT License
+%%% Copyright (c) 2019 Jose Maria Perez Ramos
+%%%-------------------------------------------------------------------
 -module(rebar3_warn_outdated_deps_common).
 
+%% API
 -export([do/2]).
 
 
-%%% API
+%%====================================================================
+%% API functions
+%%====================================================================
 
 -spec do(rebar_state:t(), boolean()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State, AbortOnMismatch) ->

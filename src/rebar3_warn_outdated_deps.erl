@@ -1,9 +1,11 @@
-% Part of rebar3_warn_outdated_deps Erlang App (rebar3 plugin)
-% MIT License
-% Copyright (c) 2019 Jose Maria Perez Ramos
-
+%%%-------------------------------------------------------------------
+%%% Part of rebar3_warn_outdated_deps Erlang App
+%%% MIT License
+%%% Copyright (c) 2019 Jose Maria Perez Ramos
+%%%-------------------------------------------------------------------
 -module(rebar3_warn_outdated_deps).
 
+%% API
 -export([
          init/1,
          do/1,
@@ -14,7 +16,9 @@
 -define(DEPS, [lock]).
 
 
-%%% API
+%%====================================================================
+%% API functions
+%%====================================================================
 
 -spec init(rebar_state:t()) -> {ok, rebar_state:t()}.
 init(State) ->
