@@ -25,6 +25,8 @@ do(State, AbortOnMismatch) ->
                                                fun({Name, Src, Level}) when is_tuple(Src), is_integer(Level) ->
                                                        rebar_api:warn("~ts locked, missing in rebar.config", [Name]),
                                                        false;
+                                                  (DepWithoutVersion) when is_binary(DepWithoutVersion) ->
+                                                       false;
                                                   (_) ->
                                                        true
                                                end, ProfileDeps),
