@@ -1,7 +1,7 @@
 %%%-------------------------------------------------------------------
 %%% Part of rebar3_warn_outdated_deps Erlang App
 %%% MIT License
-%%% Copyright (c) 2019 Jose Maria Perez Ramos
+%%% Copyright (c) 2021 Jose Maria Perez Ramos
 %%%-------------------------------------------------------------------
 -module(rebar3_warn_outdated_deps_abort).
 
@@ -29,15 +29,18 @@ init(State) ->
             {deps, ?DEPS},                % The list of dependencies
             {example, "rebar3 warn_outdated_deps_abort"}, % How to use the plugin
             {opts, []},                   % list of options understood by the plugin
-            {short_desc, "Aborts when a dep needs to be updated to match rebar.config"},
-            {desc,       "Aborts when a dep needs to be updated to match rebar.config",
-             " Commodity command for 'warn_outdated_deps -a'"}
+            {short_desc, "Aborts when a locked dep needs to be updated to match rebar.config"},
+            {desc,       "Aborts when a locked dep needs to be updated to match rebar.config",
+             " Alias for 'warn_outdated_deps -a'"}
     ]),
     {ok, rebar_state:add_provider(State, Provider)}.
 
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
-    rebar3_warn_outdated_deps_common:do(State, true).
+    case rebar3_warn_outdated_deps_common:report(State) of
+        [] -> {ok, State};
+        _ -> rebar_api:abort("Mismatch found between local and config, abort", [])
+    end.
 
 -spec format_error(any()) -> iolist().
 format_error(Reason) ->

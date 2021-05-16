@@ -1,6 +1,6 @@
 # rebar3_warn_outdated_deps
 
-Rebar3 plugin that warns when a dep needs to be updated to match rebar.config
+Rebar3 plugin that warns when a dep needs to be locked or updated to match rebar.config
 
 ## Build
 
@@ -11,7 +11,7 @@ Rebar3 plugin that warns when a dep needs to be updated to match rebar.config
 Add the plugin to your rebar config:
 
     {plugins, [
-        {rebar3_warn_outdated_deps, {git, "https://github.com/Kuroneer/rebar3_warn_outdated_deps.git", {tag, "0.1.2"}}}
+        {rebar3_warn_outdated_deps, {git, "https://github.com/Kuroneer/rebar3_warn_outdated_deps.git", {tag, "0.2.0"}}}
     ]}.
 
 Then just call it directly in an existing application:

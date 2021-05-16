@@ -1,6 +1,6 @@
 {application, rebar3_warn_outdated_deps,
- [{description, "rebar3 plugin that warns when a dep needs to be updated to match rebar.config"},
-  {vsn, "0.1.2"},
+ [{description, "rebar3 plugin that warns when a locked dep needs to be updated to match rebar.config"},
+  {vsn, "0.2.0"},
   {registered, []},
   {applications,
    [kernel,

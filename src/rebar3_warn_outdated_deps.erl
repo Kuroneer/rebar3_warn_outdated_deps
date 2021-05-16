@@ -1,7 +1,7 @@
 %%%-------------------------------------------------------------------
 %%% Part of rebar3_warn_outdated_deps Erlang App
 %%% MIT License
-%%% Copyright (c) 2019 Jose Maria Perez Ramos
+%%% Copyright (c) 2021 Jose Maria Perez Ramos
 %%%-------------------------------------------------------------------
 -module(rebar3_warn_outdated_deps).
 
@@ -31,8 +31,8 @@ init(State) ->
             {opts, [                      % list of options understood by the plugin
                     {abort_on_mismatch, $a, "abort_on_mismatch", boolean, "Abort if a mismatch is found. Default: false"}
                    ]},
-            {short_desc, "Warns when a dep needs to be updated to match rebar.config"},
-            {desc,       "Warns when a dep needs to be updated to match rebar.config"}
+            {short_desc, "Warns when a locked dep needs to be updated to match rebar.config"},
+            {desc,       "Warns when a locked dep needs to be updated to match rebar.config"}
     ]),
     {ok, StateWithLockWarnAbortCommand} = rebar3_warn_outdated_deps_abort:init(State),
     {ok, rebar_state:add_provider(StateWithLockWarnAbortCommand, Provider)}.
@@ -40,8 +40,13 @@ init(State) ->
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
-    AbortOnMismatch = proplists:get_value(abort_on_mismatch, Args, false),
-    rebar3_warn_outdated_deps_common:do(State, AbortOnMismatch).
+    case proplists:get_value(abort_on_mismatch, Args, false) of
+        true ->
+            rebar3_warn_outdated_deps_abort:do(State);
+        _ ->
+            rebar3_warn_outdated_deps_common:report(State),
+            {ok, State}
+    end.
 
 -spec format_error(any()) ->  iolist().
 format_error(Reason) ->
